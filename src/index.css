@@ -4,15 +4,21 @@ body {
   font-family: sans-serif;
   align-content: center;
   text-align: center;  
-  
+  background: #181717;
 }
 
 .main {
-  color: #fff;
+  color: #FFFFFF;
   background-color: #55A96C;
   border-color: #55A96C;
   margin-left: 15px;
   margin-right: 15px;  
+}
+
+h1 {
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .main:hover {
@@ -21,6 +27,47 @@ body {
   border-color: #178736;
 }
 
+.list-group {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.list-group-item {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: #181717;
+  color: white;
+}
+
 .list-group-item:hover {
-  background-color: #6AAFD2;
+  background-color: #000;
+}
+
+.list-group-item img {
+  float: left;
+  /* padding-right: 40px;
+  padding-left: 40px; */
+  margin-right: 40px;
+  margin-left: 40px;
+
+}
+
+/* artist */
+.list-group-item strong {
+  font-size: 28px;
+  padding-top: 8px;
+  margin: auto;
+  padding-left: 15px;
+  vertical-align: middle;
+  float: left;
+}
+
+/* track name */
+.list-group-item span {
+  font-size: 28px;
+  padding-top: 8px;
+  margin: auto;
+  /* padding-left: 40px; */
+  vertical-align: middle;
+  float: left;
 }

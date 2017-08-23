@@ -18,9 +18,15 @@ class Button extends React.Component {
 // Each listItem
 const ListItem = ({artist, track, url, img, index}) => {
   return (
+
     <li className="list-group-item">
-      <a href={url}><img src={img} alt="thumbnail" /></a> <span>{track} {artist}</span>
+      <span>{index+1}</span>
+      <a href={url}>
+        <img src={img} alt="thumbnail" />
+      </a>
+      <span>{track}  -</span> <strong>{artist}</strong>
     </li>
+    
   );
 }
 
@@ -63,14 +69,16 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      numItems: 1,
+      numItems: 10,
       selectedRegion: 'global',
-      data: [{
-        artist: 'adele',
-        track: 'hello',
-        url: 'https://open.spotify.com/track/2rb5MvYT7ZIxbKW5hfcHx8',
-        img: 'https://i.scdn.co/image/cbf7b701bcecc01f9be17f6ff54dd7fdffcef269',
-      }],
+      data: [
+      //   {
+      //   artist: 'adele',
+      //   track: 'hello',
+      //   url: 'https://open.spotify.com/track/2rb5MvYT7ZIxbKW5hfcHx8',
+      //   img: 'https://i.scdn.co/image/cbf7b701bcecc01f9be17f6ff54dd7fdffcef269',
+      // }
+      ],
     };
     this.getGlobal = this.getGlobal.bind(this);
     this.getUS = this.getUS.bind(this);
@@ -151,7 +159,7 @@ class App extends Component {
     
     return (
       <div className="App">
-        <h2> SPOTIFY TOP 10 </h2>
+        <h1> SPOTIFY TOP SONGS </h1>
         {global}
         {unitedstates}
         {japan}

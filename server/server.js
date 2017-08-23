@@ -57,10 +57,6 @@ server.get('/spotArgentina',
   spotifyWhisperer.getSpotGlobal
 );
 
-// server.get('/spotUS', spotifyWhisperer.getSpotUS);
-// server.get('/spotJapan', spotifyWhisperer.getJapan); 
-// server.get('/spotArgentina', spotifyWhisperer.getArgentina); 
-
 server.listen(3000);
 
 module.exports = server;
