@@ -7,6 +7,12 @@ body {
   background: #181717;
 }
 
+h1 {
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .main {
   color: #FFFFFF;
   background-color: #55A96C;
@@ -15,13 +21,21 @@ body {
   margin-right: 15px;  
 }
 
-h1 {
-  color: white;
-  padding-top: 10px;
-  padding-bottom: 10px;
+.main:hover {
+  color: #fff;
+  background-color: #178736;
+  border-color: #178736;
 }
 
-.main:hover {
+.main-active {
+  color: #FFFFFF;
+  background-color: BLACK;
+  border-color: #55A96C;
+  margin-left: 15px;
+  margin-right: 15px;  
+}
+
+.main-active:hover {
   color: #fff;
   background-color: #178736;
   border-color: #178736;
