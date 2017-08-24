@@ -15,14 +15,6 @@ server.use((req, res, next) => {
   next();
 });
 
-// serve index page
-server.get('/',
-  (req, res, next) => {
-    console.log('serving index...');
-    res.sendFile(path.join(__dirname, '../build', 'index.html'));
-    server.use(express.static(path.join(__dirname, '../build')));
-});
-
 server.get('/spotGlobal',
   (req, res, next) => {
     req.locals = {};
@@ -58,6 +50,14 @@ server.get('/spotArgentina',
   },
   spotifyWhisperer.getSpotGlobal
 );
+
+// serve index page
+server.get('*',
+(req, res, next) => {
+  console.log('serving index...');
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+  server.use(express.static(path.join(__dirname, '../build')));
+});
 
 server.listen(port);
 
