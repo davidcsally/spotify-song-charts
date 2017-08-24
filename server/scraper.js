@@ -3,55 +3,53 @@
 const cheerio = require('cheerio');
 const request = require('request');
 
+const FIVE_MIN = 300000;
+
 const spotifyWhisperer = {
 
   cache: {},
 
-  getSpotGlobal: (req, res, next) => {
+  getSpotGlobal: (req, res) => {
     request(req.locals.url, (error, response, html) => {
       console.log('#getSpotGlobal -> request');
       console.log(`URL: ${req.locals.url}`);
-      const url = req.locals.url
-      if (error) return console.log(error);      
+      const reqURL = req.locals.url;
+      if (error) return console.log(error);
 
-      let currentTime = Date.now();
-      const fiveMin = 300000;
+      const currentTime = Date.now();
 
       // check if cached key exists...
-      if (spotifyWhisperer.cache[url]) {
-        console.log('cache exists...')
+      if (spotifyWhisperer.cache[reqURL] && spotifyWhisperer.cache[reqURL].timeStamp) {
         // check age of cached object
-        if (spotifyWhisperer.cache[url].timeStamp) {
-          let oldTime = spotifyWhisperer.cache[url].timeStamp;
+        const timeStamp = spotifyWhisperer.cache[reqURL].timeStamp;
 
-          // if data is less than 5 mins old, return cache
-          if (oldTime + fiveMin >= currentTime) {
-            console.log(`sending cache of: ${url}`)
-            return res.json(spotifyWhisperer.cache[url].trackList);
-          } else console.log('cache too old');
-        } else console.log('err with cache');
+        // if data is less than 5 mins old, return cache
+        if (timeStamp + FIVE_MIN >= currentTime) {
+          console.log(`sending cache of: ${reqURL}`);
+          return res.json(spotifyWhisperer.cache[reqURL].trackList);
+        } console.log('cache too old');
       } else console.log('no cache');
-      
+
       // scrape the URL
       const $ = cheerio.load(html);
       let trackList = [];
 
-      $('tr').map((index, element) => {
+      // iterate through all chartItems, extract data, and save to array
+      $('tr').map((index, chartItems) => {
+        const url = $(chartItems).children('td').children('a').attr('href');
+        const img = $(chartItems).children('td').children('a').children('img').attr('src');
+        const track = $(chartItems).children('td').children('strong').text();
+        let artist = $(chartItems).children('td').children('span').text();
 
-        const url = $(element).children('td').children('a').attr('href');
-        const img = $(element).children('td').children('a').children('img').attr('src')
-        const track = $(element).children('td').children('strong').text();
-        let artist = $(element).children('td').children('span').text();
-
+        // remove "by " from artist name
         artist = artist.substring(3);
-        // console.log(`adding: ${artist}, ${track} \nurl: ${url} \nimg: ${img}`);
         trackList.push({ artist, track, url, img });
       });
       trackList = trackList.slice(1);
 
       // save and send cache;
-      spotifyWhisperer.cache[url] = { trackList, timeStamp: currentTime };
-      res.json(spotifyWhisperer.cache[url].trackList);
+      spotifyWhisperer.cache[reqURL] = { trackList, timeStamp: currentTime };
+      res.json(spotifyWhisperer.cache[reqURL].trackList);
     });
   },
 };

@@ -57,6 +57,15 @@ class App extends Component {
     });
   }
 
+  getSongs() {
+    axios.get('spot').then((props) => {
+      const country = (props.country) ? props.country : null;
+      axios.get('spotify.com/country', params: {
+        country: country
+      });
+    });
+  }
+
   getJapan() {
     axios.get('/spotJapan')
     .then((response) => {
@@ -131,7 +140,7 @@ class App extends Component {
         <MuiThemeProvider>
           <div style={{width: '50%', margin: '0 auto'}}>
             <Slider
-              defaultValue={10}
+              defaultValue={01}
               step={1}
               max={20}
               {...this.state}
