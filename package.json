@@ -15,11 +15,11 @@
     "request": "^2.81.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "server": "node server/server.js"
+    "compile": "react-scripts-start"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3"
