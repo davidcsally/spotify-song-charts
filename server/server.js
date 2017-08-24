@@ -9,6 +9,7 @@ const spotifyWhisperer = require('./scraper');
 var port = process.env.PORT || 3000;
 
 // allow CORs
+server.use(express.static(path.join(__dirname, '../build')));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -56,7 +57,6 @@ server.get('/',
 (req, res, next) => {
   console.log('serving index...');
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
-  server.use(express.static(path.join(__dirname, '../build')));
 });
 
 server.listen(port);
