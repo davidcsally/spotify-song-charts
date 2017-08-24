@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 
-// class Button extends React.Component {
 class Button extends Component {
-    
   render() {
-
     if (this.props.isActive) {
-      // console.log('active')
       return (
         <div className="btn btn-lg button-active"
         onClick={() => {
@@ -20,7 +16,6 @@ class Button extends Component {
     }
 
     else {
-      // console.log('in active')      
       return (
         <div className="btn btn-lg button"
         onClick={() => {

@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 
 class ListItem extends Component {
-  
   render() {
-    console.log(`*******`);
-    console.log(` INDEX: ${this.props.index + 1}`)
-    console.log(`*******`);
-    
     return (
       <li className="list-group-item">
         <span>{this.props.index}</span>
@@ -17,6 +12,6 @@ class ListItem extends Component {
       </li>
     );
   }
-};
+}
 
 export default ListItem;

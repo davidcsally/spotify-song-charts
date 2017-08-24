@@ -6,58 +6,62 @@ const path = require('path');
 const server = express();
 const spotifyWhisperer = require('./scraper');
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
+
+// Serve the page
+server.use(express.static(path.join(__dirname, '../build')));
 
 // allow CORs
-server.use(express.static(path.join(__dirname, '../build')));
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
 
+// ROUTES for scrapes
 server.get('/spotGlobal',
   (req, res, next) => {
     req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/global/daily/latest'
+    req.locals.url = 'https://spotifycharts.com/regional/global/daily/latest';
     next();
   },
-  spotifyWhisperer.getSpotGlobal
+  spotifyWhisperer.scapeCharts,
 );
 
 server.get('/spotUS',
   (req, res, next) => {
     req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/us/daily/latest'
+    req.locals.url = 'https://spotifycharts.com/regional/us/daily/latest';
     next();
   },
-  spotifyWhisperer.getSpotGlobal
+  spotifyWhisperer.scapeCharts,
 );
 
 server.get('/spotJapan',
   (req, res, next) => {
     req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/jp/daily/latest'
+    req.locals.url = 'https://spotifycharts.com/regional/jp/daily/latest';
     next();
   },
-  spotifyWhisperer.getSpotGlobal
+  spotifyWhisperer.scapeCharts,
 );
 
 server.get('/spotArgentina',
   (req, res, next) => {
     req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/ar/daily/latest'
+    req.locals.url = 'https://spotifycharts.com/regional/ar/daily/latest';
     next();
   },
-  spotifyWhisperer.getSpotGlobal
+  spotifyWhisperer.scapeCharts,
 );
 
 // serve index page
-server.get('/', 
-(req, res, next) => {
-  console.log('serving index...');
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-});
+server.get('/',
+  (req, res, next) => {
+    console.log('serving index...');
+    res.sendFile(path.join(__dirname, '../build', 'index.html'));
+  },
+);
 
 server.listen(port);
 

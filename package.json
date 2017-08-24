@@ -9,7 +9,7 @@
     "material-ui": "^0.19.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-scripts": "1.0.11",
+    "react-scripts": "^1.0.11",
     "react-transition-group": "^1.2.0",
     "request": "^2.81.0"
   },
@@ -18,7 +18,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "compile": "react-scripts-start"
+    "compile": "react-scripts start"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3"
