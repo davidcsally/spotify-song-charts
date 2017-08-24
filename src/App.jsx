@@ -83,7 +83,6 @@ class App extends Component {
 
   /** Manage slider values */
   sliderHandler(value) {
-    console.log(`value: ${value}`);
     this.setState({
       numItems: value,
     });

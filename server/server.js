@@ -57,7 +57,7 @@ server.get('/spotArgentina',
 
 // serve index page
 server.get('/',
-  (req, res, next) => {
+  (req, res, next) => { 
     console.log('serving index...');
     res.sendFile(path.join(__dirname, '../build', 'index.html'));
   },
