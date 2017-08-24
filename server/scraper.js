@@ -40,9 +40,9 @@ const spotifyWhisperer = {
         if (timeStamp + FIVE_MINUTES >= currentTime) {
           console.log(`sending cache of: ${url}`);
           return res.json(spotifyWhisperer.cache[url].trackList);
-        } else console.log('cache too old');
+        } console.log('cache too old');
       } else console.log('no cache');
-      
+
       // otherwise scrape the URL
       const $ = cheerio.load(html);
       let trackList = [];

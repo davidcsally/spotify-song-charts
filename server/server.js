@@ -6,7 +6,7 @@ const path = require('path');
 const server = express();
 const spotifyWhisperer = require('./scraper');
 
-const port = process.env.PORT || 3000;
+var port = process.env.PORT || 3000;
 
 // Serve the page
 server.use(express.static(path.join(__dirname, '../build')));
