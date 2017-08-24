@@ -52,7 +52,7 @@ server.get('/spotArgentina',
 );
 
 // serve index page
-server.get('*', 
+server.get('/', 
 (req, res, next) => {
   console.log('serving index...');
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
