@@ -55,8 +55,8 @@ server.get('/spotArgentina',
 server.get('*',
 (req, res, next) => {
   console.log('serving index...');
-  res.sendFile(path.join(__dirname, '../build', 'index.html'));
-  server.use(express.static(path.join(__dirname, '../build')));
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+  server.use(express.static(path.join(__dirname, '../public')));
 });
 
 server.listen(port);
