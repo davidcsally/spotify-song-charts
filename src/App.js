@@ -2,95 +2,17 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Slider from 'material-ui/Slider';
-// import getMuiTheme from 'material-ui'
+import Slider from 'material-ui/Slider'; 
 
-class Button extends React.Component {
-
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     active: false,
-  //     bgColor: '#55A96C',
-  //   }
-  //   this.buttonHandler = this.buttonHandler.bind(this);
-  // }
-
-  // buttonHandler() {
-  //   if (this.state.active === false) this.setState({ active: true, bgColor: '#178736' });
-  //   else this.setState({ active: false, bgColor: '#55A96C' });
-  // }
-
-  render() {
-
-    if (this.props.isActive) {
-      console.log('active')
-      return (
-        <div className="btn btn-lg main-active"
-        onClick={() => {
-          this.props.action()
-          this.props.stateAction(this.props.index)
-        }}
-        >
-          {this.props.text}
-        </div>
-      )    
-    }
-
-    else {
-      console.log('in active')      
-      return (
-        <div className="btn btn-lg main"
-        onClick={() => {
-          this.props.action()
-          this.props.stateAction(this.props.index)
-        }}
-        >
-          {this.props.text}
-        </div>
-      )    
-    }
-  }
-}
-
-// Each listItem
-const ListItem = ({artist, track, url, img, index}) => {
-  return (
-    <li className="list-group-item">
-      <span>{index+1}</span>
-      <a href={url}>
-        <img src={img} alt="thumbnail" />
-      </a>
-      <span>{track}  -</span> <strong>{artist}</strong>
-    </li>
-  );
-}
-
-const TodoList = ({nodes, numItems}) => {
-  if (nodes.length > 0) {
-    // console.log('mapping...')
-    let listNode = [];
-
-    for (let i = 0; i < numItems; i++) {
-      // console.log(`artist: ${nodes[i].artist}  track: ${nodes[i].track}`);
-      listNode.push(<ListItem className="list-group" artist={nodes[i].artist} track={nodes[i].track} index={i} key={i} url={nodes[i].url} img={nodes[i].img} />);
-    }
-    
-    return ( <ul className="list-group" style={{marginTop:'30px'}}>{listNode}</ul> );  
-  }
-
-  else {
-    return (<ul className="list-group" style={{marginTop:'30px'}}></ul>)
-  }
-}
+import Button from './Button.jsx'
+import SongList from './SongList.jsx'
 
 class App extends Component {
 
   constructor() {
     super();
     this.state = {
-      numItems: 10,
-      selectedRegion: 'global',
+      numItems: 0,  // init to zero
       data: [
         // {
         //   artist: 'adele',
@@ -110,10 +32,8 @@ class App extends Component {
   }
 
   buttonStateHandler(index) {
-    console.log(`#buttonStateHandler:  ${index}`)
     let buttonStates = [false, false, false, false, false];
     buttonStates[index] = true;
-    console.log(`states: ${buttonStates}`)
     this.setState({ buttonStates })
   }
 
@@ -168,6 +88,7 @@ class App extends Component {
     .then((response) => {
       // console.log('*****************');
       // console.log(response.data);
+      console.log('setting state...')
       this.setState({data: response.data});
     })
     .catch((error) => {
@@ -176,11 +97,20 @@ class App extends Component {
     });
   }
 
-
+  /**
+   * componentDidMount() - this code is executed when the component
+   * is first added to the screen
+   * 
+   */
   componentDidMount() {
-    this.getGlobal();    
+    this.getGlobal()
+    this.setState({numItems: 10});
   }
 
+  /**
+   * Render() - presents the App to the screen
+   * 
+   */
   render() {
     let global = this.renderButton('Global', 0, this.getGlobal, this.buttonStateHandler, this.state.buttonStates[0], 0);
     
@@ -193,6 +123,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1> SPOTIFY TOP SONGS </h1>
+        <br/>
         {global}
         {unitedstates}
         {japan}
@@ -208,15 +139,20 @@ class App extends Component {
             />
           </div>
         </MuiThemeProvider>
-
-        <TodoList
-          nodes={this.state.data} numItems={this.state.numItems}
-        />
-
+        <SongList nodes={this.state.data} numItems={this.state.numItems} />
       </div>
     );
   }
 
+  /**
+   * renderButton() - Generate a button
+   * @param {string} text 
+   * @param {int} key 
+   * @param {function} action 
+   * @param {function} stateAction 
+   * @param {bool} isActive 
+   * @param {int} index 
+   */
   renderButton(text, key, action, stateAction, isActive, index) {
     return <Button key={key} text={text} action={action} stateAction={stateAction} isActive={isActive} index={index} />
   }
