@@ -6,6 +6,8 @@ const path = require('path');
 const server = express();
 const spotifyWhisperer = require('./scraper');
 
+var port = process.env.PORT || 3000;
+
 // allow CORs
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -57,6 +59,6 @@ server.get('/spotArgentina',
   spotifyWhisperer.getSpotGlobal
 );
 
-server.listen(3000);
+server.listen(port);
 
 module.exports = server;
