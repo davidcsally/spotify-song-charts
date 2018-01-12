@@ -1,10 +1,13 @@
+
 const express = require('express');
 const path = require('path');
 
 const server = express();
+const urls = require('./urls');
 const spotifyWhisperer = require('./scraper');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3111;
+const FIVE_MINUTES = 300000;
 
 // Serve the page
 server.use(express.static(path.join(__dirname, '../build')));
@@ -16,56 +19,114 @@ server.use((req, res, next) => {
   next();
 });
 
+// cache the data
+const cache = {
+  global: [],
+  us: [],
+  japan: [],
+  argentina: [],
+};
+
+// fetch data every five minutes
+spotifyWhisperer.scrape(urls.global)
+  .then((res) => {
+    cache.global = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+spotifyWhisperer.scrape(urls.us)
+  .then((res) => {
+    cache.us = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+spotifyWhisperer.scrape(urls.japan)
+  .then((res) => {
+    cache.japan = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+spotifyWhisperer.scrape(urls.argentina)
+  .then((res) => {
+    cache.argentina = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+setInterval(() => {
+  // fetch data every five minutes
+  spotifyWhisperer.scrape(urls.global)
+    .then((res) => {
+      cache.global = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.us)
+    .then((res) => {
+      cache.us = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.japan)
+    .then((res) => {
+      cache.japan = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.argentina)
+    .then((res) => {
+      cache.argentina = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+}, FIVE_MINUTES);
+
 // ROUTES for scrapes
-server.get(
-  '/spotGlobal',
-  (req, res, next) => {
-    req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/global/daily/latest';
-    next();
-  },
-  spotifyWhisperer.scapeCharts,
-);
+server.get('/spotGlobal', (req, res) => {
+  if (cache.global) return res.json(cache.global);
+  return console.log('[/spotGlobal]error');
+});
 
 server.get(
   '/spotUS',
-  (req, res, next) => {
-    req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/us/daily/latest';
-    next();
+  (req, res) => {
+    if (cache.us) return res.json(cache.us);
+    return console.log('error');
   },
-  spotifyWhisperer.scapeCharts,
 );
 
 server.get(
   '/spotJapan',
-  (req, res, next) => {
-    req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/jp/daily/latest';
-    next();
+  (req, res) => {
+    if (cache.japan) return res.json(cache.japan);
+    return console.log('error');
   },
-  spotifyWhisperer.scapeCharts,
 );
 
 server.get(
   '/spotArgentina',
-  (req, res, next) => {
-    req.locals = {};
-    req.locals.url = 'https://spotifycharts.com/regional/ar/daily/latest';
-    next();
+  (req, res) => {
+    if (cache.argentina) return res.json(cache.argentina);
+    return console.log('error');
   },
-  spotifyWhisperer.scapeCharts,
 );
 
 // serve index page
 server.get(
   '/',
   (req, res) => {
-    console.log('serving index...');
     res.sendFile(path.join(__dirname, '../build', 'index.html'));
   },
 );
 
-server.listen(port);
+server.listen(port, () => {
+  console.log(`serving listening @port ${port}`);
+});
 
 module.exports = server;
