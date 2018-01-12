@@ -21,13 +21,14 @@ server.use((req, res, next) => {
 
 // cache the data
 const cache = {
-  global: null,
-  us: null,
-  japan: null,
-  argentina: null,
+  global: [],
+  us: [],
+  japan: [],
+  argentina: [],
 };
 
 // fetch data every five minutes
+// TODO fix this, return a promise
 cache.global = spotifyWhisperer.scrape(urls.global);
 cache.us = spotifyWhisperer.scrape(urls.us);
 cache.japan = spotifyWhisperer.scrape(urls.japan);
@@ -39,14 +40,17 @@ setInterval(() => {
   cache.argentina = spotifyWhisperer.scrape(urls.argentina);
 }, FIVE_MINUTES);
 
+setTimeout(() => {
+  console.log(cache);
+}, 5000);
+
 // ROUTES for scrapes
-server.get(
-  '/spotGlobal',
-  (req, res) => {
-    if (cache.global) return res.json(cache.global);
-    return console.log('error');
-  },
-);
+server.get('/spotGlobal', (req, res) => {
+  console.log('cache?', cache);
+  console.log('global', cache.global);
+  if (cache.global) return res.json(cache.global);
+  return console.log('[/spotGlobal]error');
+});
 
 server.get(
   '/spotUS',
