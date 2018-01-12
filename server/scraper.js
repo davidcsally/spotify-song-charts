@@ -1,5 +1,3 @@
-'use strict';
-
 const cheerio = require('cheerio');
 const request = require('request');
 
@@ -17,16 +15,15 @@ const spotifyWhisperer = {
 
   /**
    * scrapeCharts() - pass this function as middleware,
-   * before invoking this function save a url in 
+   * before invoking this function save a url in
    * req.locals.url to use as a scrape target
-   * 
+   *
    * THIS WILL END THE REQUEST
    */
   scapeCharts: (req, res) => {
     request(req.locals.url, (error, response, html) => {
-      console.log('#getSpotGlobal -> request');
-      console.log(`URL: ${req.locals.url}`);
-      const url = req.locals.url;
+      const { locals } = req;
+      const { url } = locals;
 
       if (error) return console.log(error);
 
@@ -49,14 +46,14 @@ const spotifyWhisperer = {
 
       // iterate through all chartItems, extract data, and save to array
       $('tr').map((index, chartItem) => {
-        const url = $(chartItem).children('td').children('a').attr('href');
+        const urlz = $(chartItem).children('td').children('a').attr('href');
         const img = $(chartItem).children('td').children('a').children('img').attr('src');
         const track = $(chartItem).children('td').children('strong').text();
         let artist = $(chartItem).children('td').children('span').text();
 
         // remove "by " from artist name
         artist = artist.substring(3);
-        trackList.push({ artist, track, url, img });
+        trackList.push({ artist, track, urlz, img });
       });
       trackList = trackList.slice(1); // first entry is junk
 
