@@ -6,7 +6,7 @@ const server = express();
 const urls = require('./urls');
 const spotifyWhisperer = require('./scraper');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3111;
 const FIVE_MINUTES = 300000;
 
 // Serve the page
@@ -28,26 +28,67 @@ const cache = {
 };
 
 // fetch data every five minutes
-// TODO fix this, return a promise
-cache.global = spotifyWhisperer.scrape(urls.global);
-cache.us = spotifyWhisperer.scrape(urls.us);
-cache.japan = spotifyWhisperer.scrape(urls.japan);
-cache.argentina = spotifyWhisperer.scrape(urls.argentina);
-setInterval(() => {
-  cache.global = spotifyWhisperer.scrape(urls.global);
-  cache.us = spotifyWhisperer.scrape(urls.us);
-  cache.japan = spotifyWhisperer.scrape(urls.japan);
-  cache.argentina = spotifyWhisperer.scrape(urls.argentina);
-}, FIVE_MINUTES);
+spotifyWhisperer.scrape(urls.global)
+  .then((res) => {
+    cache.global = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
 
-setTimeout(() => {
-  console.log(cache);
-}, 5000);
+spotifyWhisperer.scrape(urls.us)
+  .then((res) => {
+    cache.us = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+spotifyWhisperer.scrape(urls.japan)
+  .then((res) => {
+    cache.japan = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+spotifyWhisperer.scrape(urls.argentina)
+  .then((res) => {
+    cache.argentina = res;
+    return null;
+  })
+  .catch(err => console.log('err', err));
+
+setInterval(() => {
+  // fetch data every five minutes
+  spotifyWhisperer.scrape(urls.global)
+    .then((res) => {
+      cache.global = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.us)
+    .then((res) => {
+      cache.us = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.japan)
+    .then((res) => {
+      cache.japan = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+
+  spotifyWhisperer.scrape(urls.argentina)
+    .then((res) => {
+      cache.argentina = res;
+      return null;
+    })
+    .catch(err => console.log('err', err));
+}, FIVE_MINUTES);
 
 // ROUTES for scrapes
 server.get('/spotGlobal', (req, res) => {
-  console.log('cache?', cache);
-  console.log('global', cache.global);
   if (cache.global) return res.json(cache.global);
   return console.log('[/spotGlobal]error');
 });

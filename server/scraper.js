@@ -6,7 +6,7 @@ const request = require('request-promise');
  */
 const spotifyWhisperer = {
   scrape: (url) => {
-    request(url)
+    return request(url)
       .then((html) => {
         console.log('then');
         const $ = cheerio.load(html);
@@ -24,14 +24,10 @@ const spotifyWhisperer = {
           trackList.push({ artist, track, urlz, img });
         });
         trackList = trackList.slice(1); // first entry is junk
-
-        // save and send cache;
-        console.log('tracklist', trackList.length);
+        // return data;
         return trackList;
       })
-      .catch((err) => {
-        console.log('err', err);
-      });
+      .catch(err => console.log('err', err));
   },
 };
 
