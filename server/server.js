@@ -1,12 +1,10 @@
-'use strict'
-
 const express = require('express');
 const path = require('path');
 
 const server = express();
 const spotifyWhisperer = require('./scraper');
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 // Serve the page
 server.use(express.static(path.join(__dirname, '../build')));
@@ -19,7 +17,8 @@ server.use((req, res, next) => {
 });
 
 // ROUTES for scrapes
-server.get('/spotGlobal',
+server.get(
+  '/spotGlobal',
   (req, res, next) => {
     req.locals = {};
     req.locals.url = 'https://spotifycharts.com/regional/global/daily/latest';
@@ -28,7 +27,8 @@ server.get('/spotGlobal',
   spotifyWhisperer.scapeCharts,
 );
 
-server.get('/spotUS',
+server.get(
+  '/spotUS',
   (req, res, next) => {
     req.locals = {};
     req.locals.url = 'https://spotifycharts.com/regional/us/daily/latest';
@@ -37,7 +37,8 @@ server.get('/spotUS',
   spotifyWhisperer.scapeCharts,
 );
 
-server.get('/spotJapan',
+server.get(
+  '/spotJapan',
   (req, res, next) => {
     req.locals = {};
     req.locals.url = 'https://spotifycharts.com/regional/jp/daily/latest';
@@ -46,7 +47,8 @@ server.get('/spotJapan',
   spotifyWhisperer.scapeCharts,
 );
 
-server.get('/spotArgentina',
+server.get(
+  '/spotArgentina',
   (req, res, next) => {
     req.locals = {};
     req.locals.url = 'https://spotifycharts.com/regional/ar/daily/latest';
@@ -56,7 +58,8 @@ server.get('/spotArgentina',
 );
 
 // serve index page
-server.get('/',
+server.get(
+  '/',
   (req, res) => {
     console.log('serving index...');
     res.sendFile(path.join(__dirname, '../build', 'index.html'));
