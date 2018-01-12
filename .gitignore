@@ -19,3 +19,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+build/static/js/main.a134d40f.js.map
+build/static/js/main.a134d40f.js
+build/static/css/main.2ff3078e.css.map
+build/static/css/main.2ff3078e.css
+build/service-worker.js
+build/index.html
+build/asset-manifest.json
