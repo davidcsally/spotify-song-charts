@@ -1,29 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import ListItem from './ListItem.jsx';
 
-class SongList extends Component {
-  render() {
-    if (this.props.nodes.length > 0) {
-      const listNode = [];
+const generateListItem = (node, i) =>
+  (<ListItem
+    className="list-group"
+    artist={node.artist}
+    track={node.track}
+    index={i + 1}
+    key={i}
+    url={node.url}
+    img={node.img}
+  />);
 
-      for (let i = 0; i < this.props.numItems; i++) {
-        listNode.push(
-          <ListItem
-            className="list-group"
-            artist={this.props.nodes[i].artist}
-            track={this.props.nodes[i].track}
-            index={i + 1}
-            key={i}
-            url={this.props.nodes[i].url}
-            img={this.props.nodes[i].img}
-          />,
-        );
-      }
-      return (<ul className="list-group" style={{ marginTop: '30px' }}>{listNode}</ul>);
+const SongList = ({ nodes, numItems }) => {
+  if (nodes.length > 0) {
+    const listNode = [];
+    for (let i = 0; i < numItems; i += 1) {
+      listNode.push(generateListItem(nodes[i], i));
     }
-
-    return (<ul className="list-group" style={{ marginTop: '30px' }} />);
+    return <ul className="list-group" style={{ marginTop: '30px' }}>{listNode}</ul>;    
   }
-}
+  return (<ul className="list-group" style={{ marginTop: '30px' }} />);
+};
+
+SongList.propTypes = {
+  numItems: PropTypes.number.isRequired,
+  nodes: PropTypes.array.isRequired, // refactor this
+};
 
 export default SongList;
