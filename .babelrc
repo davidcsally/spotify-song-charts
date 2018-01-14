@@ -1,0 +1,7 @@
+{
+  "plugins": ["transform-es2015-arrow-functions", "transform-class-properties", "react-hot-loader/babel"],
+  "presets": [
+    "react",
+    ["env", { "modules": false }]
+  ]
+}
