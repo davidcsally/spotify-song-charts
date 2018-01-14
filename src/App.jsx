@@ -41,10 +41,7 @@ class App extends Component {
       .then((response) => {
         this.setState({ data: response.data });
       })
-      .catch((error) => {
-        console.log('ERROR: ');
-        console.log(error);
-      });
+      .catch(error => console.log('ERROR: ', error));
   }
 
   getJapan() {
@@ -52,10 +49,7 @@ class App extends Component {
       .then((response) => {
         this.setState({ data: response.data });
       })
-      .catch((error) => {
-        console.log('ERROR: ');
-        console.log(error);
-      });
+      .catch(error => console.log('ERROR: ', error));
   }
 
   getArgentina() {
@@ -63,10 +57,7 @@ class App extends Component {
       .then((response) => {
         this.setState({ data: response.data });
       })
-      .catch((error) => {
-        console.log('ERROR: ');
-        console.log(error);
-      });
+      .catch(error => console.log('ERROR: ', error));
   }
 
   getUS() {
@@ -74,10 +65,7 @@ class App extends Component {
       .then((response) => {
         this.setState({ data: response.data });
       })
-      .catch((error) => {
-        console.log('ERROR: ');
-        console.log(error);
-      });
+      .catch(error => console.log('ERROR: ', error));
   }
 
   /** Manage slider values */
