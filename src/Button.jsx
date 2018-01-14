@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Button = ({
-  isActive, text, action, stateAction, index,
+  isActive, text, action, stateAction, index, route,
 }) => {
   if (isActive) {
     return (
       <button
         className="btn btn-lg button-active"
         onClick={() => {
-          action();
+          action(route);
           stateAction(index);
         }}
       >
@@ -21,7 +21,7 @@ const Button = ({
     <button
       className=" btn btn-lg button"
       onClick={() => {
-        action();
+        action(route);
         stateAction(index);
       }}
     >
@@ -35,6 +35,7 @@ Button.propTypes = {
   action: PropTypes.func.isRequired,
   stateAction: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 export default Button;
