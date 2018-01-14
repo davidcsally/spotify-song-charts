@@ -38,34 +38,32 @@ class App extends Component {
 
   getGlobal() {
     axios.get('/spotGlobal')
-      .then((response) => {
-        this.setState({ data: response.data });
-      })
+      .then(response => this.setState({ data: response.data }))
       .catch(error => console.log('ERROR: ', error));
   }
 
   getJapan() {
     axios.get('/spotJapan')
-      .then((response) => {
-        this.setState({ data: response.data });
-      })
+      .then(response => this.setState({ data: response.data }))
       .catch(error => console.log('ERROR: ', error));
   }
 
   getArgentina() {
     axios.get('/spotArgentina')
-      .then((response) => {
-        this.setState({ data: response.data });
-      })
+      .then(response => this.setState({ data: response.data }))
       .catch(error => console.log('ERROR: ', error));
   }
 
   getUS() {
     axios.get('/spotUS')
-      .then((response) => {
-        this.setState({ data: response.data });
-      })
+      .then(response => this.setState({ data: response.data }))
       .catch(error => console.log('ERROR: ', error));
+  }
+
+  fetchAPI = (route) => {
+    axios.get(route)
+      .then(res => this.setState({ data: res.data }))
+      .catch(err => console.log('ERROR: ', err));
   }
 
   /** Manage slider values */
