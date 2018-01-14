@@ -8,7 +8,6 @@ const spotifyWhisperer = {
   scrape: (url) => {
     return request(url)
       .then((html) => {
-        console.log('then');
         const $ = cheerio.load(html);
         let trackList = [];
 
