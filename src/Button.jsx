@@ -10,7 +10,7 @@ const Button = ({
         className="btn btn-lg button-active"
         onClick={() => {
           action();
-          stateAction(this.props.index);
+          stateAction(index);
         }}
       >
         {text}
