@@ -6,58 +6,54 @@ import Button from './Button';
 import SongList from './SongList';
 // import './App.css';
 
+const Buttons = {
+  Global: 'Global',
+  Japan: 'Japan',
+  Argentina: 'Argentina',
+  US: '  US  ',
+};
+
+const Routes = {
+  global: '/spotGlobal',
+  japan: '/spotJapan',
+  argentina: '/spotArgentina',
+  us: '/spotUS',
+};
+
+/**
+* renderButton() - Generate a button
+* @param {string} text
+* @param {function} action
+* @param {function} stateAction
+* @param {bool} isActive
+* @param {int} index
+*/
+const renderButton = (text, apiCall, stateAction, isActive, index, route) => {
+  return (<Button
+    text={text}
+    action={apiCall}
+    stateAction={stateAction}
+    isActive={isActive}
+    index={index}
+    route={route}
+  />);
+};
+
 class App extends Component {
   /** App Constructor */
   constructor() {
     super();
 
     this.state = {
-      numItems: 0, // init to zero
+      numItems: 10, // init to zero
       data: [],
       buttonStates: [true, false, false, false, false],
     };
 
     // BIND all the functions
-    this.getGlobal = this.getGlobal.bind(this);
-    this.getUS = this.getUS.bind(this);
-    this.getJapan = this.getJapan.bind(this);
-    this.getArgentina = this.getArgentina.bind(this);
     this.sliderHandler = this.sliderHandler.bind(this);
     this.buttonStateHandler = this.buttonStateHandler.bind(this);
-  }
-
-  /**
-   * componentDidMount() - this code is executed when the component
-   * is first added to the screen
-   * 
-   */
-  componentWillMount() {
-    this.getGlobal();
-    this.setState({ numItems: 10 });
-  }
-
-  getGlobal() {
-    axios.get('/spotGlobal')
-      .then(response => this.setState({ data: response.data }))
-      .catch(error => console.log('ERROR: ', error));
-  }
-
-  getJapan() {
-    axios.get('/spotJapan')
-      .then(response => this.setState({ data: response.data }))
-      .catch(error => console.log('ERROR: ', error));
-  }
-
-  getArgentina() {
-    axios.get('/spotArgentina')
-      .then(response => this.setState({ data: response.data }))
-      .catch(error => console.log('ERROR: ', error));
-  }
-
-  getUS() {
-    axios.get('/spotUS')
-      .then(response => this.setState({ data: response.data }))
-      .catch(error => console.log('ERROR: ', error));
+    this.fetchAPI(Routes.global);
   }
 
   fetchAPI = (route) => {
@@ -80,37 +76,11 @@ class App extends Component {
     this.setState({ buttonStates });
   }
 
-  /**
-  * renderButton() - Generate a button
-  * @param {string} text 
-  * @param {int} key 
-  * @param {function} action 
-  * @param {function} stateAction 
-  * @param {bool} isActive 
-  * @param {int} index 
-  */
-  renderButton(text, key, action, stateAction, isActive, index) {
-    return (<Button
-      key={key}
-      text={text}
-      action={action}
-      stateAction={stateAction}
-      isActive={isActive}
-      index={index}
-    />);
-  }
-  /**
-   * Render() - presents the App to the screen
-   * 
-   */
   render() {
-    const global = this.renderButton('Global', 0, this.getGlobal, this.buttonStateHandler, this.state.buttonStates[0], 0);
-
-    const unitedstates = this.renderButton('  US  ', 1, this.getUS, this.buttonStateHandler, this.state.buttonStates[1], 1);
-
-    const japan = this.renderButton('Japan', 2, this.getJapan, this.buttonStateHandler, this.state.buttonStates[2], 2);
-
-    const argentina = this.renderButton('Argentina', 3, this.getArgentina, this.buttonStateHandler, this.state.buttonStates[3], 3);
+    const global = renderButton(Buttons.Global, this.fetchAPI, this.buttonStateHandler, this.state.buttonStates[0], 0, Routes.global);
+    const unitedstates = renderButton(Buttons.US, this.fetchAPI, this.buttonStateHandler, this.state.buttonStates[1], 1, Routes.us);
+    const japan = renderButton(Buttons.Japan, this.fetchAPI, this.buttonStateHandler, this.state.buttonStates[2], 2, Routes.japan);
+    const argentina = renderButton(Buttons.Argentina, this.fetchAPI, this.buttonStateHandler, this.state.buttonStates[3], 3, Routes.argentina);
 
     return (
       <div className="App">
