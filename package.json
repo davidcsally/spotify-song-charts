@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "compile": "react-scripts start"
+    "compile": "react-scripts start",
+    "start:prod": "npm-run-all -p server build"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
