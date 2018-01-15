@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from './ListItem.jsx';
+import ListItem from '../ListItem/ListItem.jsx';
 
 const generateListItem = (node, i) =>
   (<ListItem
