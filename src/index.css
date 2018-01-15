@@ -7,9 +7,13 @@ body {
   background: #181717;
 }
 
+li {
+  list-style: none;
+}
+
 /* Main Heading */
 h1 {
-  display:inline-block;   
+  display:inline-block;
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;

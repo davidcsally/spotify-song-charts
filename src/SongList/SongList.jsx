@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ListItem from '../ListItem/ListItem.jsx';
+import ListItem from '../ListItem/ListItem';
 
-const generateListItem = (node, i) =>
-  (<ListItem
+const generateListItem = (node, i) => (
+  <ListItem
     className="list-group"
     artist={node.artist}
     track={node.track}
@@ -19,7 +19,7 @@ const SongList = ({ nodes, numItems }) => {
     for (let i = 0; i < numItems; i += 1) {
       listNode.push(generateListItem(nodes[i], i));
     }
-    return <ul className="list-group" style={{ marginTop: '30px' }}>{listNode}</ul>;    
+    return <ul className="list-group" style={{ marginTop: '30px' }}>{listNode}</ul>;
   }
   return (<ul className="list-group" style={{ marginTop: '30px' }} />);
 };
