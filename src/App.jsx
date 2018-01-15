@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Slider from 'material-ui/Slider';
 import Button from './Button';
 import SongList from './SongList/SongList.jsx'
-// import './App.css';
+import './index.css';
 
 const Buttons = {
   Global: 'Global',
