@@ -7,6 +7,10 @@ body {
   background: #181717;
 }
 
+li {
+  list-style: none;
+}
+
 /* Main Heading */
 h1 {
   display:inline-block;   
