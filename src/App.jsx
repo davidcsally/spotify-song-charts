@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Slider from 'material-ui/Slider';
 import Button from './Button';
-import SongList from './SongList';
+import SongList from './SongList/SongList.jsx'
 // import './App.css';
 
 const Buttons = {
@@ -22,22 +22,17 @@ const Routes = {
 
 /**
 * renderButton() - Generate a button
-* @param {string} text
-* @param {function} action
-* @param {function} stateAction
-* @param {bool} isActive
-* @param {int} index
 */
-const renderButton = (text, apiCall, stateAction, isActive, index, route) => {
-  return (<Button
-    text={text}
-    action={apiCall}
+const renderButton = (title, apiFunc, stateAction, isActive, index, route) => (
+  <Button
+    title={title}
+    apiFunc={apiFunc}
     stateAction={stateAction}
     isActive={isActive}
     index={index}
     route={route}
-  />);
-};
+  />
+);
 
 class App extends Component {
   /** App Constructor */
@@ -45,14 +40,11 @@ class App extends Component {
     super();
 
     this.state = {
-      numItems: 10, // init to zero
+      numItems: 10,
       data: [],
       buttonStates: [true, false, false, false, false],
     };
 
-    // BIND all the functions
-    this.sliderHandler = this.sliderHandler.bind(this);
-    this.buttonStateHandler = this.buttonStateHandler.bind(this);
     this.fetchAPI(Routes.global);
   }
 
@@ -63,14 +55,14 @@ class App extends Component {
   }
 
   /** Manage slider values */
-  sliderHandler(value) {
+  sliderHandler = (value) => {
     this.setState({
       numItems: value,
     });
   }
 
   /** Manage button states, and which buttons are active */
-  buttonStateHandler(index) {
+  buttonStateHandler = (index) => {
     const buttonStates = [false, false, false, false, false];
     buttonStates[index] = true;
     this.setState({ buttonStates });
