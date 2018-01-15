@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Button = ({
-  isActive, text, action, stateAction, index,
+  isActive, title, apiFunc, stateAction, index, route,
 }) => {
   if (isActive) {
     return (
       <button
         className="btn btn-lg button-active"
         onClick={() => {
-          action();
-          stateAction(this.props.index);
+          apiFunc(route);
+          stateAction(index);
         }}
       >
-        {text}
+        {title}
       </button>);
   }
 
@@ -21,20 +21,21 @@ const Button = ({
     <button
       className=" btn btn-lg button"
       onClick={() => {
-        action();
+        apiFunc(route);
         stateAction(index);
       }}
     >
-      {text}
+      {title}
     </button>);
 };
 
 Button.propTypes = {
   isActive: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired,
-  action: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  apiFunc: PropTypes.func.isRequired,
   stateAction: PropTypes.func.isRequired,
   index: PropTypes.number.isRequired,
+  route: PropTypes.string.isRequired,
 };
 
 export default Button;
