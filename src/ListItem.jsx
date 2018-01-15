@@ -1,17 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class ListItem extends Component {
-  render() {
-    return (
-      <li className="list-group-item">
-        <span>{this.props.index}</span>
-        <a href={this.props.url}>
-          <img src={this.props.img} alt="thumbnail" />
-        </a>
-        <span>{this.props.track}  -</span> <strong>{this.props.artist}</strong>
-      </li>
-    );
-  }
-}
+// used in SongList
+const ListItem = ({ index, url, img, track, artist }) => (
+  <a className="list-group-item" href={url}>
+    <li>
+      <span>{index}</span>
+      <img src={img} alt="thumbnail" />
+      <span>{track}  -</span> <strong>{artist}</strong>
+    </li>
+  </a>
+);
+
+ListItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  url: PropTypes.string.isRequired,
+  img: PropTypes.string.isRequired,
+  track: PropTypes.string.isRequired,
+  artist: PropTypes.string.isRequired,
+};
 
 export default ListItem;
