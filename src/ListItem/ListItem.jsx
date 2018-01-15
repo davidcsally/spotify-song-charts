@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 // used in SongList
 const ListItem = ({ index, url, img, track, artist }) => (
-  <a styleName="list-group-item" href={url}>
+  <a className="list-group-item" href={url}>
     <li>
       <span>{index}</span>
       <img src={img} alt="thumbnail" />
