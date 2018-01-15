@@ -14,10 +14,10 @@ const Buttons = {
 };
 
 const Routes = {
-  global: '/spotGlobal',
-  japan: '/spotJapan',
-  argentina: '/spotArgentina',
-  us: '/spotUS',
+  global: '/songs/global',
+  japan: '/songs/japan',
+  argentina: '/songs/argentina',
+  us: '/songs/us',
 };
 
 /**
