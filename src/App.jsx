@@ -44,25 +44,24 @@ class App extends Component {
       data: [],
       buttonStates: [true, false, false, false, false],
     };
-    this.fetchAPI = this.fetchAPI.bind(this);
     this.fetchAPI(Routes.global);
   }
 
-  fetchAPI(route) {
+  fetchAPI = (route) => {
     axios.get(route)
       .then(res => this.setState({ data: res.data }))
       .catch(err => console.log('ERROR: ', err));
   }
 
   /** Manage slider values */
-  sliderHandler(value) {
+  sliderHandler = (value) => {
     this.setState({
       numItems: value,
     });
   }
 
   /** Manage button states, and which buttons are active */
-  buttonStateHandler(index) {
+  buttonStateHandler = (index) => {
     const buttonStates = [false, false, false, false, false];
     buttonStates[index] = true;
     this.setState({ buttonStates });
