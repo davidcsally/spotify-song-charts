@@ -2,9 +2,12 @@
 const express = require('express');
 const path = require('path');
 
+const urls = require('./util/urls');
+const spotifyWhisperer = require('./util/scraper');
+const { keepAlive } = require('./util/serverPing');
+
+keepAlive();
 const server = express();
-const urls = require('./urls');
-const spotifyWhisperer = require('./scraper');
 
 const port = process.env.PORT || 3111;
 const FIVE_MINUTES = 300000;
