@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Slider from 'material-ui/Slider';
 import Button from './Button';
-import SongList from './SongList/SongList.jsx'
+import SongList from './SongList/SongList';
 import './index.css';
 
 const Buttons = {
@@ -14,10 +14,10 @@ const Buttons = {
 };
 
 const Routes = {
-  global: '/spotGlobal',
-  japan: '/spotJapan',
-  argentina: '/spotArgentina',
-  us: '/spotUS',
+  global: '/songs/global',
+  japan: '/songs/japan',
+  argentina: '/songs/argentina',
+  us: '/songs/us',
 };
 
 /**
@@ -44,7 +44,6 @@ class App extends Component {
       data: [],
       buttonStates: [true, false, false, false, false],
     };
-
     this.fetchAPI(Routes.global);
   }
 

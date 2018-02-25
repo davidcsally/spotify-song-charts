@@ -19,7 +19,7 @@ const Button = ({
 
   return (
     <button
-      className=" btn btn-lg button"
+      className="btn btn-lg button"
       onClick={() => {
         apiFunc(route);
         stateAction(index);

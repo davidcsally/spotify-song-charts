@@ -1,8 +1,10 @@
 
-const express = require('express');
 const path = require('path');
+const express = require('express');
 
 const urls = require('./util/urls');
+const data = require('./data');
+const routes = require('./routes');
 const spotifyWhisperer = require('./util/scraper');
 const { keepAlive } = require('./util/serverPing');
 
@@ -15,6 +17,9 @@ const FIVE_MINUTES = 300000;
 // Serve the page
 server.use(express.static(path.join(__dirname, '../build')));
 
+// ROUTES for data
+server.use('/songs', routes);
+
 // allow CORs
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -22,39 +27,31 @@ server.use((req, res, next) => {
   next();
 });
 
-// cache the data
-const cache = {
-  global: [],
-  us: [],
-  japan: [],
-  argentina: [],
-};
-
 // fetch data every five minutes
 spotifyWhisperer.scrape(urls.global)
   .then((res) => {
-    cache.global = res;
+    data.global = res;
     return null;
   })
   .catch(err => console.log('err', err));
 
 spotifyWhisperer.scrape(urls.us)
   .then((res) => {
-    cache.us = res;
+    data.us = res;
     return null;
   })
   .catch(err => console.log('err', err));
 
 spotifyWhisperer.scrape(urls.japan)
   .then((res) => {
-    cache.japan = res;
+    data.japan = res;
     return null;
   })
   .catch(err => console.log('err', err));
 
 spotifyWhisperer.scrape(urls.argentina)
   .then((res) => {
-    cache.argentina = res;
+    data.argentina = res;
     return null;
   })
   .catch(err => console.log('err', err));
@@ -63,62 +60,32 @@ setInterval(() => {
   // fetch data every five minutes
   spotifyWhisperer.scrape(urls.global)
     .then((res) => {
-      cache.global = res;
+      data.global = res;
       return null;
     })
     .catch(err => console.log('err', err));
 
   spotifyWhisperer.scrape(urls.us)
     .then((res) => {
-      cache.us = res;
+      data.us = res;
       return null;
     })
     .catch(err => console.log('err', err));
 
   spotifyWhisperer.scrape(urls.japan)
     .then((res) => {
-      cache.japan = res;
+      data.japan = res;
       return null;
     })
     .catch(err => console.log('err', err));
 
   spotifyWhisperer.scrape(urls.argentina)
     .then((res) => {
-      cache.argentina = res;
+      data.argentina = res;
       return null;
     })
     .catch(err => console.log('err', err));
 }, FIVE_MINUTES);
-
-// ROUTES for scrapes
-server.get('/spotGlobal', (req, res) => {
-  if (cache.global) return res.json(cache.global);
-  return console.log('[/spotGlobal]error');
-});
-
-server.get(
-  '/spotUS',
-  (req, res) => {
-    if (cache.us) return res.json(cache.us);
-    return console.log('error');
-  },
-);
-
-server.get(
-  '/spotJapan',
-  (req, res) => {
-    if (cache.japan) return res.json(cache.japan);
-    return console.log('error');
-  },
-);
-
-server.get(
-  '/spotArgentina',
-  (req, res) => {
-    if (cache.argentina) return res.json(cache.argentina);
-    return console.log('error');
-  },
-);
 
 // serve index page
 server.get(

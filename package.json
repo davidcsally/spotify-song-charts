@@ -16,8 +16,8 @@
     "request-promise": "^4.2.2"
   },
   "scripts": {
-    "start": "npm-run-all -p server build",
-    "server": "node server/server.js",
+    "start": "node server/server.js",
+    "postinstall": "react-scripts build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
