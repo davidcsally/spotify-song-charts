@@ -2,7 +2,7 @@ const https = require('https');
 
 const TIMEOUT = 60000; // 1 min
 
-const url = 'https://spotifycharts.herokuapp.com/';
+const url = 'https://code-block.herokuapp.com/';
 const serverPing = {
   keepAlive() {
     setInterval(() => {
