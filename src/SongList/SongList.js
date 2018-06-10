@@ -11,21 +11,19 @@ const generateListItem = (node, i) => (
     key={i}
     url={node.url}
     img={node.img}
-  />);
+  />
+);
 
-const SongList = ({ nodes, numItems }) => {
+/** Used in App */
+const SongList = ({ nodes }) => {
   if (nodes.length > 0) {
-    const listNode = [];
-    for (let i = 0; i < numItems; i += 1) {
-      listNode.push(generateListItem(nodes[i], i));
-    }
+    const listNode = nodes.map((node, i) => generateListItem(nodes[i], i));
     return <ul className="list-group" style={{ marginTop: '30px' }}>{listNode}</ul>;
   }
   return (<ul className="list-group" style={{ marginTop: '30px' }} />);
 };
 
 SongList.propTypes = {
-  numItems: PropTypes.number.isRequired,
   nodes: PropTypes.array.isRequired, // refactor this
 };
 
