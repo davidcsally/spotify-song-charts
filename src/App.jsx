@@ -92,7 +92,7 @@ class App extends Component {
             />
           </div>
         </MuiThemeProvider>
-        <SongList nodes={this.state.data} numItems={this.state.numItems} />
+        <SongList nodes={this.state.data} />
       </div>
     );
   }
