@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Slider from 'material-ui/Slider';
@@ -47,11 +46,11 @@ class App extends Component {
     this.fetchAPI(Routes.global);
   }
 
-  fetchAPI = (route) => {
-    axios.get(route)
-      .then(res => this.setState({ data: res.data }))
+  fetchAPI = route =>
+    fetch(route, { mode: 'cors' })
+      .then(res => res.json())
+      .then(data => this.setState({ data }))
       .catch(err => console.log('ERROR: ', err));
-  }
 
   /** Manage slider values */
   sliderHandler = (value) => {
@@ -87,12 +86,11 @@ class App extends Component {
               defaultValue={10}
               step={1}
               max={20}
-              {...this.state}
               onChange={(event, value) => this.sliderHandler(value)}
             />
           </div>
         </MuiThemeProvider>
-        <SongList nodes={this.state.data} />
+        <SongList nodes={this.state.data} numItems={this.state.numItems} />
       </div>
     );
   }

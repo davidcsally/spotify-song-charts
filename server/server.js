@@ -17,15 +17,15 @@ const FIVE_MINUTES = 300000;
 // Serve the page
 server.use(express.static(path.join(__dirname, '../build')));
 
-// ROUTES for data
-server.use('/songs', routes);
-
 // allow CORs
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+
+// ROUTES for data
+server.use('/songs', routes);
 
 // fetch data every five minutes
 spotifyWhisperer.scrape(urls.global)
