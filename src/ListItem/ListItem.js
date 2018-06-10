@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import './ListItem.scss';
 
-// used in SongList
+/** Used in SongList */
 const ListItem = ({ index, url, img, track, artist }) => (
   <a className="list-group-item" href={url}>
     <li>
