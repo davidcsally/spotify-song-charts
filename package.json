@@ -3,7 +3,6 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.16.3",
     "material-ui": "^0.20.1",
@@ -21,7 +20,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "compile": "react-scripts start",
-    "start:prod": "npm-run-all -p server build"
+    "start:prod": "npm-run-all -p server build",
+    "start:dev": "npm-run-all -p start compile"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
