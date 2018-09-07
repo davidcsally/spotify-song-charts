@@ -8,7 +8,7 @@ const routes = require('./routes');
 const spotifyWhisperer = require('./util/scraper');
 const { keepAlive } = require('./util/serverPing');
 
-keepAlive();
+// keepAlive(); // ping my other heroku app to keep them alive 😬
 const server = express();
 
 const port = process.env.PORT || 3111;
